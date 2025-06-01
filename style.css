@@ -1,100 +1,126 @@
+/* Stili generali del body */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* Sfondo scuro con gradiente per un effetto più profondo */
+    background: linear-gradient(to bottom right, #0a0a0a, #2c3e50);
+    overflow: hidden; /* Impedisce lo scroll, gestiamo il ridimensionamento via CSS */
+    box-sizing: border-box;
+    font-family: sans-serif; /* Fallback font */
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom right, #0a0a0a, #2c3e50);
-    overflow: hidden;
-    box-sizing: border-box;
+    /* min-height: 100vh; - Rimuoviamo questo per affidarci al ridimensionamento del wrapper */
 }
 
+/* Wrapper per centrare e scalare l'intero gioco */
 #gameWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #1a1a1a;
+    background-color: #1a1a1a; /* Sfondo scuro per il wrapper */
     border-radius: 15px;
-    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4);
-    padding: 30px;
-    border: 3px solid #00ff00;
-    transform-origin: center center;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4); /* Ombra verde neon per richiamare lo snake */
+    padding: 2.5vmin; /* Padding responsivo basato su viewport */
+    border: 3px solid #00ff00; /* Bordo verde neon */
+    transform-origin: center center; /* Punto di origine per la scala */
+    /* Aggiungiamo regole per il ridimensionamento */
+    max-width: 95vw; /* Limita la larghezza al 95% della viewport width */
+    max-height: 95vh; /* Limita l'altezza al 95% della viewport height */
+    box-sizing: border-box; /* Assicura che padding e bordo siano inclusi nella dimensione */
 }
 
+/* Stile per il titolo del gioco */
 #gameTitle {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 48px;
-    color: #00ff00;
-    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
-    margin-bottom: 30px;
+    font-family: 'Press Start 2P', cursive; /* Font in stile arcade */
+    /* Usiamo clamp per un font-size responsivo con limiti */
+    font-size: clamp(24px, 5vmin, 48px); /* Min 24px, max 48px, si adatta al 5% della dimensione minore tra vw/vh */
+    color: #00ff00; /* Verde neon */
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Ombra neon */
+    margin-bottom: 3vmin; /* Margine responsivo */
     text-align: center;
-    letter-spacing: 5px;
+    letter-spacing: 0.1em; /* Proporzionale alla dimensione del font */
     text-transform: uppercase;
+    white-space: nowrap; /* Evita che il titolo vada a capo su schermi stretti */
 }
 
+/* Contenitore principale del gioco */
 #gameContainer {
     text-align: center;
-    background-color: #2c3e50;
-    padding: 25px;
+    background-color: #2c3e50; /* Sfondo scuro-bluastro per il contenitore */
+    padding: 2vmin; /* Padding responsivo */
     border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
     border: 2px solid #555;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-grow: 1; /* Permette al container di espandersi */
+    min-height: 0; /* Permette al flex item di rimpicciolirsi più di 0 */
 }
 
+/* Il campo da gioco (elemento canvas) */
 #gameBoard {
-    border: 5px solid #00ff00;
-    border-radius: 8px;
-    background-color: #0d1a26;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+    border: 5px solid #00ff00; /* Bordo verde neon */
+    border-radius: 8px; /* Bordi leggermente arrotondati */
+    background-color: #0d1a26; /* Sfondo blu scuro quasi nero */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8); /* Ombra interna per profondità */
+    /* La dimensione del canvas è gestita via JavaScript per mantenere le proporzioni */
+    /* Se gestisci la dimensione via CSS, usa max-width/max-height e object-fit se necessario */
 }
 
+/* Stile per il testo del punteggio */
 #scoreText {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 90px;
-    color: #f39c12;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
-    margin-top: 20px;
-    letter-spacing: 3px;
-    font-variant-numeric: tabular-nums;
+    font-family: 'Orbitron', sans-serif; /* Font tecnologico per il punteggio */
+    font-size: clamp(40px, 10vmin, 90px); /* Font-size responsivo con limiti */
+    color: #f39c12; /* Arancione brillante */
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7); /* Ombra più pronunciata */
+    margin-top: 2vmin; /* Spazio responsivo */
+    letter-spacing: 0.05em; /* Proporzionale */
+    font-variant-numeric: tabular-nums; /* Mantiene la larghezza fissa per i numeri */
 }
 
+/* Stile per il bottone di reset */
 #resetBtn {
     font-family: 'Press Start 2P', cursive;
-    font-size: 20px;
-    width: 180px;
-    height: 60px;
-    border: 4px solid #e74c3c;
+    font-size: clamp(14px, 3vmin, 20px); /* Font-size responsivo con limiti */
+    padding: 1.5vmin 3vmin; /* Padding responsivo invece di width/height fisse */
+    /* width: 180px; - Rimuovi */
+    /* height: 60px; - Rimuovi */
+    border: 4px solid #e74c3c; /* Bordo rosso */
     border-radius: 10px;
     cursor: pointer;
-    background-color: #c0392b;
+    background-color: #c0392b; /* Rosso più scuro */
     color: white;
     text-transform: uppercase;
     font-weight: bold;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombra più grande */
     transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-    margin-top: 30px;
+    margin-top: 3vmin; /* Margine responsivo */
     letter-spacing: 1px;
-    animation: pulse 2s infinite ease-in-out;
+    animation: pulse 2s infinite ease-in-out; /* Animazione di pulsazione */
 }
 
 #resetBtn:hover {
-    background-color: #e74c3c;
+    background-color: #e74c3c; /* Rosso più chiaro al passaggio */
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7);
     transform: translateY(-3px);
-    border-color: #ff6347;
+    border-color: #ff6347; /* Bordo più acceso */
 }
 
 #resetBtn:active {
-    background-color: #a02d20;
+    background-color: #a02d20; /* Rosso più scuro al click */
     transform: translateY(0);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
+/* Animazione di pulsazione per il bottone */
 @keyframes pulse {
     0% {
         transform: scale(1);
